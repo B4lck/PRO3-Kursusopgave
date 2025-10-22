@@ -6,7 +6,7 @@ package org.example;
 
 message DTOAnimal {
   int32 animalNo = 1;
-  int32 weight = 2;
+  double weight = 2;
   string typeOfAnimal = 3;
 }
 

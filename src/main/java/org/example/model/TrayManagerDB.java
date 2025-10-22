@@ -16,12 +16,12 @@ public class TrayManagerDB implements TrayManager{
     }
 
     @Override
-    public void addTray(double max_weight, String animalType, int packageNumber) {
-
+    public int addTray(double max_weight, String animalType, int packageNumber) {
+        return 0;
     }
 
     @Override
-    public void deleteTray(int id) {
-
+    public int deleteTray(int id) {
+        return 0;
     }
 }

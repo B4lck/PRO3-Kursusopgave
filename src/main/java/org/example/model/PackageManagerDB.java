@@ -1,12 +1,32 @@
 package org.example.model;
 
+import org.example.database.Database;
 import org.example.model.entities.Animal;
 import org.example.model.entities.Package;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PackageManagerDB implements PackageManager{
+    private Connection connection;
+
+    private Map<Integer, Package> packages = new HashMap<>();
+
+    public PackageManagerDB() {
+        try {
+            this.connection = Database.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public List<Package> getAllPackages() {
         return List.of();
@@ -18,17 +38,12 @@ public class PackageManagerDB implements PackageManager{
     }
 
     @Override
-    public void addPackage(LocalDate expireDate) {
-
+    public int addPackage(LocalDate expireDate) {
+        return 0;
     }
 
     @Override
-    public void removePackage(int id) {
-
-    }
-
-    @Override
-    public List<Animal> getAllAnimalsInProduct() {
-        return List.of();
+    public int removePackage(int id) {
+        return 0;
     }
 }

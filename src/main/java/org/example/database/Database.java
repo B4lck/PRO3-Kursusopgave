@@ -8,7 +8,7 @@ public class Database {
     private static boolean isDriverRegistered;
 
     private synchronized static void init() {
-        try {
+        /*try {
             if (!isDriverRegistered) {
                 DriverManager.registerDriver(new org.postgresql.Driver());
                 isDriverRegistered = true;
@@ -16,7 +16,7 @@ public class Database {
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     public static Connection getConnection() throws SQLException {

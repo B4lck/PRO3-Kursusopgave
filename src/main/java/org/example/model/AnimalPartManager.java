@@ -8,6 +8,6 @@ public interface AnimalPartManager {
     List<AnimalPart> getAllAnimalParts();
     AnimalPart getPart(int id);
     List<AnimalPart> getAllPartsFromParent(int id);
-    void addAnimalPart(double weight, int tray, int fromAnimal, String description);
-    void deleteAnimalPart(int id);
+    int addAnimalPart(double weight, int tray, int fromAnimal, String description);
+    int deleteAnimalPart(int id);
 }

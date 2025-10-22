@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.database.Database;
+import org.example.model.entities.Animal;
 import org.example.model.entities.AnimalPart;
 
 import java.sql.Connection;
@@ -85,16 +86,68 @@ public class AnimalPartManagerDB implements AnimalPartManager{
     public List<AnimalPart> getAllPartsFromParent(int id) {
         List<AnimalPart> list = new ArrayList<>();
 
-        return List.of();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM slaughter_house.animalpart WHERE from_animal = ?");
+            statement.setInt(1, id);
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                double weight = res.getDouble("weight");
+                int trayNumber = res.getInt("tray_no");
+                int fromAnimal = res.getInt("from_animal");
+                int partId = res.getInt("part_id");
+                String description = res.getString("description");
+
+                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, description);
+                animalParts.put(partId, animal);
+                list.add(animal);
+            }
+
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void addAnimalPart(double weight, int tray, int fromAnimal, String description) {
+    public int addAnimalPart(double weight, int tray, int fromAnimal, String description) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO slaughter_house.animalpart (weight, tray_no, from_animal, description) VALUES (?, ?, ?, ?) RETURNING slaughter_house.animalpart.part_id as id");
+            statement.setDouble(1, weight);
+            statement.setInt(2, tray);
+            statement.setInt(3, fromAnimal);
+            statement.setString(4, description);
 
+            ResultSet res = statement.executeQuery();
+            if (res.next()) {
+                int id = res.getInt("id");
+                animalParts.put(id, new AnimalPart(weight, tray, fromAnimal, id, description));
+                return id;
+            } else {
+                throw new RuntimeException("Kunne ikke indsætte");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void deleteAnimalPart(int id) {
+    public int deleteAnimalPart(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM slaughter_house.animalpart WHERE part_id=? RETURNING slaughter_house.animalpart.part_id");
+            statement.setInt(1, id);
 
+            ResultSet res = statement.executeQuery();
+
+            if (res.next()) {
+                animalParts.remove(id);
+                return id;
+            }
+            else {
+                throw new RuntimeException("Findes ikke");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -9,7 +9,6 @@ import java.util.List;
 public interface PackageManager {
     List<Package> getAllPackages();
     Package getPackage(int id);
-    void addPackage(LocalDate expireDate);
-    void removePackage(int id);
-    List<Animal> getAllAnimalsInProduct();
+    int addPackage(LocalDate expireDate);
+    int removePackage(int id);
 }

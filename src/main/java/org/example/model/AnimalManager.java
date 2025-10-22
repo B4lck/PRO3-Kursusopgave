@@ -8,5 +8,6 @@ public interface AnimalManager {
     List<Animal> getAllAnimals();
     Animal getAnimal(int id);
     int addAnimal(double weight, String type);
-    void deleteAnimal(int id);
+    int deleteAnimal(int id);
+    List<Animal> getAllAnimalsInProduct(int packageId);
 }
