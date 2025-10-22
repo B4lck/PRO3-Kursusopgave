@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class AnimalPartManagerDB implements AnimalPartManager{
-    private Connection connection;
+    private final Connection connection;
 
-    private Map<Integer, AnimalPart> animalParts = new HashMap<>();
+    private final Map<Integer, AnimalPart> animalParts = new HashMap<>();
 
     public AnimalPartManagerDB() {
         try {

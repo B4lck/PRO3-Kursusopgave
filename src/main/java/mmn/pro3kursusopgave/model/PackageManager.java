@@ -9,5 +9,5 @@ public interface PackageManager {
     List<Package> getAllPackages();
     Package getPackage(int id);
     int addPackage(LocalDate expireDate);
-    int removePackage(int id);
+    int deletePackage(int id);
 }
