@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package org.example;
+
+message DTOAnimal {
+  int32 animalNo = 1;
+  int32 weight = 2;
+  string typeOfAnimal = 3;
+}
+
+message DTOAnimalPart {
+  int32 trayNo = 1;
+  DTOAnimal from = 2;
+  double weight = 3;
+}
+
+message DTOTray
+{
+  int32 trayNo = 1;
+  double maxWeight = 2;
+  string typeOfAnimal = 3;
+  repeated DTOAnimalPart parts = 4;
+}
+
+message DTOPackage
+{
+  int32 packageNo = 1;
+  int64 expire_date = 2;
+  repeated DTOTray trays = 3;
+}
+
+message GetAllAnimalsInvolvedInProductRequest
+{
+  int32 productId = 1;
+}
+
+message GetAllAnimalsInvolvedInProductResponse
+{
+  repeated DTOAnimal animals = 1;
+}
+
+message GetAllProductsInvolvedInAnimalRequest
+{
+  int32 animalId = 1;
+}
+
+message GetAllProductsInvolvedInAnimalResponse
+{
+  repeated DTOPackage products = 1;
+}
+
+service SlaughterHouseService
+{
+  rpc GetAllAnimalsInvolvedInProduct (GetAllAnimalsInvolvedInProductRequest) returns (GetAllAnimalsInvolvedInProductResponse);
+  rpc GetAllProductsInvolvedInAnimal (GetAllProductsInvolvedInAnimalRequest) returns (GetAllProductsInvolvedInAnimalResponse);
+}
