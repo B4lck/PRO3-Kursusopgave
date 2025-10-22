@@ -1,7 +1,7 @@
-package org.example.model;
+package mmn.pro3kursusopgave.model;
 
-import org.example.database.Database;
-import org.example.model.entities.Animal;
+import mmn.pro3kursusopgave.database.Database;
+import mmn.pro3kursusopgave.model.entities.Animal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

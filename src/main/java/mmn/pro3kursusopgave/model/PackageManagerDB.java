@@ -1,15 +1,11 @@
-package org.example.model;
+package mmn.pro3kursusopgave.model;
 
-import org.example.database.Database;
-import org.example.model.entities.Animal;
-import org.example.model.entities.Package;
+import mmn.pro3kursusopgave.database.Database;
+import mmn.pro3kursusopgave.model.entities.Package;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

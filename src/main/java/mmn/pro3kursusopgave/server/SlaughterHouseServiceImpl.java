@@ -1,15 +1,15 @@
-package org.example.server;
+package mmn.pro3kursusopgave.server;
 
 import io.grpc.stub.StreamObserver;
-import org.example.DTOAnimal;
-import org.example.GetAllAnimalsInvolvedInProductRequest;
-import org.example.GetAllAnimalsInvolvedInProductResponse;
-import org.example.SlaughterHouseServiceGrpc;
-import org.example.model.AnimalManager;
-import org.example.model.AnimalPartManager;
-import org.example.model.PackageManager;
-import org.example.model.TrayManager;
-import org.example.model.entities.Animal;
+import mmn.pro3kursusopgave.DTOAnimal;
+import mmn.pro3kursusopgave.GetAllAnimalsInvolvedInProductRequest;
+import mmn.pro3kursusopgave.GetAllAnimalsInvolvedInProductResponse;
+import mmn.pro3kursusopgave.SlaughterHouseServiceGrpc;
+import mmn.pro3kursusopgave.model.AnimalManager;
+import mmn.pro3kursusopgave.model.AnimalPartManager;
+import mmn.pro3kursusopgave.model.PackageManager;
+import mmn.pro3kursusopgave.model.TrayManager;
+import mmn.pro3kursusopgave.model.entities.Animal;
 
 import java.util.List;
 

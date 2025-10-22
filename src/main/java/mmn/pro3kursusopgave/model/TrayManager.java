@@ -1,6 +1,6 @@
-package org.example.model;
+package mmn.pro3kursusopgave.model;
 
-import org.example.model.entities.Tray;
+import mmn.pro3kursusopgave.model.entities.Tray;
 
 import java.util.List;
 

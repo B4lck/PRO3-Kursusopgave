@@ -1,4 +1,4 @@
-package org.example.model.entities;
+package mmn.pro3kursusopgave.model.entities;
 
 import java.time.LocalDate;
 

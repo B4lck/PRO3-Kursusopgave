@@ -1,6 +1,6 @@
-package org.example.model;
+package mmn.pro3kursusopgave.model;
 
-import org.example.model.entities.AnimalPart;
+import mmn.pro3kursusopgave.model.entities.AnimalPart;
 
 import java.util.List;
 

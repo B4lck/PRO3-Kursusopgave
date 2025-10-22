@@ -1,4 +1,4 @@
-package org.example.database;
+package mmn.pro3kursusopgave.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +22,7 @@ public class Database {
     public static Connection getConnection() throws SQLException {
         if (!isDriverRegistered) init();
 
-        var context = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pro3_kursusopgave", "postgres", "postgres");
+        var context = DriverManager.getConnection("jdbc:postgresql://localhost:5432/pro3_slagteri", "pro3_slagteri", "pro3_slagteri");
         context.setSchema("slaughter_house");
         return context;
     }

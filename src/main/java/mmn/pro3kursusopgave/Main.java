@@ -1,9 +1,9 @@
-package org.example;
+package mmn.pro3kursusopgave;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import org.example.model.*;
-import org.example.server.SlaughterHouseServiceImpl;
+import mmn.pro3kursusopgave.model.*;
+import mmn.pro3kursusopgave.server.SlaughterHouseServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +14,7 @@ public class Main {
 
         Server server = ServerBuilder.forPort(8080).addService(new SlaughterHouseServiceImpl(animalManager, animalPartManager, packageManager, trayManager)).build();
         try {
+            System.out.println("grpc server starter");
             server.start();
             server.awaitTermination();
         } catch (Exception e) {
