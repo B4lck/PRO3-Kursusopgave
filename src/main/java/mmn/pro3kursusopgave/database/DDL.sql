@@ -112,3 +112,8 @@ VALUES  (20.00, 5, 1, 'Rib eyes'),
         (20.00, 1, 2, 'Flæskesteg'),
         (1.7, 2, 3, 'Hel kylling'),
         (1.7, 2, 4, 'Hel kylling');
+
+GRANT ALL PRIVILEGES ON DATABASE pro3_slagteri TO pro3_slagteri;
+GRANT ALL PRIVILEGES ON SCHEMA slaughter_house TO pro3_slagteri;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA slaughter_house TO pro3_slagteri;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA slaughter_house TO pro3_slagteri;
