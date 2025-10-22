@@ -1,7 +1,6 @@
 package mmn.pro3kursusopgave.model;
 
 import mmn.pro3kursusopgave.database.Database;
-import mmn.pro3kursusopgave.model.entities.AnimalPart;
 import mmn.pro3kursusopgave.model.entities.Package;
 
 import java.sql.Connection;
@@ -15,17 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 public class PackageManagerDB implements PackageManager{
-    private final Connection connection;
+    private final Connection connection = Database.getConnection();
 
     private final Map<Integer, Package> packages = new HashMap<>();
-
-    public PackageManagerDB() {
-        try {
-            this.connection = Database.getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public List<Package> getAllPackages() {

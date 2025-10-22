@@ -12,18 +12,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @see AnimalPartManager
+ */
 public class AnimalPartManagerDB implements AnimalPartManager{
-    private final Connection connection;
+    private final Connection connection = Database.getConnection();
 
+    /**
+     * Lokal cache over delene af dyr fra databasen.
+     */
     private final Map<Integer, AnimalPart> animalParts = new HashMap<>();
-
-    public AnimalPartManagerDB() {
-        try {
-            connection = Database.getConnection();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public List<AnimalPart> getAllAnimalParts() {
@@ -51,6 +49,10 @@ public class AnimalPartManagerDB implements AnimalPartManager{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Hvis delen er gemt i cachen, returner den fra cachen.
+     */
     @Override
     public AnimalPart getPart(int id) {
         AnimalPart animal = animalParts.get(id);

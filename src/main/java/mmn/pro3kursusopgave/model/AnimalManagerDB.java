@@ -12,19 +12,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @see AnimalManager
+ */
 public class AnimalManagerDB implements AnimalManager
 {
-    private final Connection connection;
+    private final Connection connection = Database.getConnection();
 
+    /**
+     * Lokal cache over dyr.
+     */
     private final Map<Integer, Animal> animals = new HashMap<>();
-
-    public AnimalManagerDB() {
-        try {
-            connection = Database.getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public List<Animal> getAllAnimals() {
@@ -50,6 +48,10 @@ public class AnimalManagerDB implements AnimalManager
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Hvis dyret er cached, returner den dyret fra cachen.
+     */
     @Override
     public Animal getAnimal(int id) {
         Animal animal = animals.get(id);
@@ -116,6 +118,7 @@ public class AnimalManagerDB implements AnimalManager
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public List<Animal> getAllAnimalsInProduct(int packageId) {
         List<Animal> returnList = new ArrayList<>();

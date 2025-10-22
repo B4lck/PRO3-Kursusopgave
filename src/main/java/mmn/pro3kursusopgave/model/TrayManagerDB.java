@@ -1,8 +1,6 @@
 package mmn.pro3kursusopgave.model;
 
 import mmn.pro3kursusopgave.database.Database;
-import mmn.pro3kursusopgave.model.entities.AnimalPart;
-import mmn.pro3kursusopgave.model.entities.Package;
 import mmn.pro3kursusopgave.model.entities.Tray;
 
 import java.sql.Connection;
@@ -14,18 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TrayManagerDB implements TrayManager{
-    private final Connection connection;
+public class TrayManagerDB implements TrayManager {
+    private final Connection connection = Database.getConnection();
 
     private final Map<Integer, Tray> trays = new HashMap<>();
-
-    public TrayManagerDB() {
-        try {
-            this.connection = Database.getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public List<Tray> getAllTrays() {
