@@ -1,4 +1,4 @@
-package mmn.pro3kursusopgave.database;
+package mmn.pro3kursusopgave.server.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

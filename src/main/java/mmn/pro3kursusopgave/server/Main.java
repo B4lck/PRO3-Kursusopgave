@@ -1,9 +1,9 @@
-package mmn.pro3kursusopgave;
+package mmn.pro3kursusopgave.server;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import mmn.pro3kursusopgave.model.*;
-import mmn.pro3kursusopgave.server.SlaughterHouseServiceImpl;
+import mmn.pro3kursusopgave.server.model.*;
+import mmn.pro3kursusopgave.server.server.SlaughterHouseServiceImpl;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
-package mmn.pro3kursusopgave.model;
+package mmn.pro3kursusopgave.server.model;
 
-import mmn.pro3kursusopgave.database.Database;
-import mmn.pro3kursusopgave.model.entities.Animal;
+import mmn.pro3kursusopgave.server.database.Database;
+import mmn.pro3kursusopgave.server.model.entities.Animal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

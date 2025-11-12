@@ -1,6 +1,6 @@
-package mmn.pro3kursusopgave.model;
+package mmn.pro3kursusopgave.server.model;
 
-import mmn.pro3kursusopgave.model.entities.Package;
+import mmn.pro3kursusopgave.server.model.entities.Package;
 
 import java.time.LocalDate;
 import java.util.List;
