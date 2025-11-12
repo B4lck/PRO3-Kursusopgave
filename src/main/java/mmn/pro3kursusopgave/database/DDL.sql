@@ -3,6 +3,11 @@ DROP SCHEMA IF EXISTS slaughter_house CASCADE;
 CREATE SCHEMA slaughter_house;
 SET SCHEMA 'slaughter_house';
 
+GRANT ALL PRIVILEGES ON DATABASE pro3_slagteri TO pro3_slagteri;
+GRANT ALL PRIVILEGES ON SCHEMA slaughter_house TO pro3_slagteri;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA slaughter_house TO pro3_slagteri;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA slaughter_house TO pro3_slagteri;
+
 CREATE DOMAIN animal_type AS VARCHAR(7) CHECK (VALUE IN ('beef', 'pork', 'lamb', 'chicken', 'fish', 'other'));
 CREATE DOMAIN weight_domain AS NUMERIC(6,2);
 
@@ -113,8 +118,3 @@ VALUES  (20.00, 5, 1, 'Rib eyes'),
         (20.00, 1, 2, 'Flæskesteg'),
         (1.7, 2, 3, 'Hel kylling'),
         (1.7, 2, 4, 'Hel kylling');
-
-GRANT ALL PRIVILEGES ON DATABASE pro3_slagteri TO pro3_slagteri;
-GRANT ALL PRIVILEGES ON SCHEMA slaughter_house TO pro3_slagteri;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA slaughter_house TO pro3_slagteri;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA slaughter_house TO pro3_slagteri;
