@@ -1,10 +1,7 @@
 package mmn.pro3kursusopgave.server.server;
 
 import io.grpc.stub.StreamObserver;
-import mmn.pro3kursusopgave.DTOAnimal;
-import mmn.pro3kursusopgave.GetAllAnimalsInvolvedInProductRequest;
-import mmn.pro3kursusopgave.GetAllAnimalsInvolvedInProductResponse;
-import mmn.pro3kursusopgave.SlaughterHouseServiceGrpc;
+import mmn.pro3kursusopgave.*;
 import mmn.pro3kursusopgave.server.model.AnimalManager;
 import mmn.pro3kursusopgave.server.model.AnimalPartManager;
 import mmn.pro3kursusopgave.server.model.PackageManager;
@@ -38,6 +35,50 @@ public class SlaughterHouseServiceImpl extends SlaughterHouseServiceGrpc.Slaught
                     .setAnimalNo(animal.getAnimalId())
                     .setTypeOfAnimal(animal.getAnimalType())
                     .setWeight(animal.getWeight())
+                    .setOrigin(animal.getOrigin())
+                    .setDateTime(animal.getDateTime())
+                    .build();
+            response.addAnimals(animalDTO);
+        }
+
+        responseObserver.onNext(response.build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getAllAnimalsFromDate(GetAllAnimalsFromDateRequest request, StreamObserver<GetAllAnimalsFromDateResponse> responseObserver) {
+        GetAllAnimalsFromDateResponse.Builder response = GetAllAnimalsFromDateResponse.newBuilder();
+
+
+        List<Animal> animals = animalManager.getAllAnimalsFromDate(request.getDateTime());
+        for (Animal animal : animals) {
+            var animalDTO = DTOAnimal.newBuilder()
+                    .setAnimalNo(animal.getAnimalId())
+                    .setTypeOfAnimal(animal.getAnimalType())
+                    .setWeight(animal.getWeight())
+                    .setOrigin(animal.getOrigin())
+                    .setDateTime(animal.getDateTime())
+                    .build();
+            response.addAnimals(animalDTO);
+        }
+
+        responseObserver.onNext(response.build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getAllAnimalsFromOrigin(GetAllAnimalsFromOriginRequest request, StreamObserver<GetAllAnimalsFromOriginResponse> responseObserver) {
+        GetAllAnimalsFromOriginResponse.Builder response = GetAllAnimalsFromOriginResponse.newBuilder();
+
+
+        List<Animal> animals = animalManager.getAllAnimalsFromOrigin(request.getOrigin());
+        for (Animal animal : animals) {
+            var animalDTO = DTOAnimal.newBuilder()
+                    .setAnimalNo(animal.getAnimalId())
+                    .setTypeOfAnimal(animal.getAnimalType())
+                    .setWeight(animal.getWeight())
+                    .setOrigin(animal.getOrigin())
+                    .setDateTime(animal.getDateTime())
                     .build();
             response.addAnimals(animalDTO);
         }

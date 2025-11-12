@@ -3,10 +3,13 @@ DROP SCHEMA IF EXISTS slaughter_house CASCADE;
 CREATE SCHEMA slaughter_house;
 SET SCHEMA 'slaughter_house';
 
-GRANT ALL PRIVILEGES ON DATABASE pro3_slagteri TO pro3_slagteri;
-GRANT ALL PRIVILEGES ON SCHEMA slaughter_house TO pro3_slagteri;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA slaughter_house TO pro3_slagteri;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA slaughter_house TO pro3_slagteri;
+--GRANT ALL PRIVILEGES ON DATABASE pro3_slagteri TO pro3_slagteri;
+--GRANT ALL PRIVILEGES ON SCHEMA slaughter_house TO pro3_slagteri;
+--GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA slaughter_house TO pro3_slagteri;
+--GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA slaughter_house TO pro3_slagteri;
+
+ALTER DATABASE pro3_slagteri OWNER TO pro3_slagteri;
+ALTER SCHEMA slaughter_house OWNER TO pro3_slagteri;
 
 CREATE DOMAIN animal_type AS VARCHAR(7) CHECK (VALUE IN ('beef', 'pork', 'lamb', 'chicken', 'fish', 'other'));
 CREATE DOMAIN weight_domain AS NUMERIC(6,2);
@@ -28,7 +31,8 @@ CREATE TABLE Animal (
                         weight weight_domain NOT NULL,
                         type_of_animal animal_type NOT NULL,
                         animal_no SERIAL PRIMARY KEY,
-                        origin VARCHAR NOT NULL
+                        origin VARCHAR NOT NULL,
+                        dateTime BIGINT NOT NULL
 );
 
 CREATE TABLE AnimalPart (
@@ -106,12 +110,12 @@ VALUES  (20.00, 'pork', 1), -- 1
         (7.50, 'pork', 3),  -- 4
         (20.00, 'beef', 4); -- 5
 
-INSERT INTO Animal (weight, type_of_animal, origin)   -- Animal ID
-VALUES  (390.00, 'beef', 'Jens Hansens Bondegård'),  -- 1
-        (110.00, 'pork', 'Jens Hansens Bondegård'), -- 2
-        (1.7, 'chicken', 'Jens Hansens Bondegård'), -- 3
-        (1.7, 'chicken', 'Jens Hansens Bondegård'), -- 4
-        (25.00, 'lamb', 'Olsens Herregård');  -- 5
+INSERT INTO Animal (weight, type_of_animal, origin, dateTime)   -- Animal ID
+VALUES  (390.00, 'beef', 'Jens Hansens Bondegård', 1762902000),  -- 1
+        (110.00, 'pork', 'Jens Hansens Bondegård', 1762902000), -- 2
+        (1.7, 'chicken', 'Jens Hansens Bondegård', 1762902000), -- 3
+        (1.7, 'chicken', 'Jens Hansens Bondegård', 1762902000), -- 4
+        (25.00, 'lamb', 'Olsens Herregård', 1762902000);  -- 5
 
 INSERT INTO AnimalPart (weight, tray_no, from_animal, description)
 VALUES  (20.00, 5, 1, 'Rib eyes'),

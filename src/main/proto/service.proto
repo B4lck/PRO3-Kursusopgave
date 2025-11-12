@@ -8,6 +8,8 @@ message DTOAnimal {
   int32 animalNo = 1;
   double weight = 2;
   string typeOfAnimal = 3;
+  string origin = 4;
+  int64 dateTime = 5;
 }
 
 message DTOAnimalPart {
@@ -51,8 +53,30 @@ message GetAllProductsInvolvedInAnimalResponse
   repeated DTOPackage products = 1;
 }
 
+message GetAllAnimalsFromDateRequest
+{
+  int64 dateTime = 1;
+}
+
+message GetAllAnimalsFromDateResponse
+{
+  repeated DTOAnimal animals = 1;
+}
+
+message GetAllAnimalsFromOriginRequest
+{
+  string origin = 1;
+}
+
+message GetAllAnimalsFromOriginResponse
+{
+  repeated DTOAnimal animals = 1;
+}
+
 service SlaughterHouseService
 {
   rpc GetAllAnimalsInvolvedInProduct (GetAllAnimalsInvolvedInProductRequest) returns (GetAllAnimalsInvolvedInProductResponse);
   rpc GetAllProductsInvolvedInAnimal (GetAllProductsInvolvedInAnimalRequest) returns (GetAllProductsInvolvedInAnimalResponse);
+  rpc GetAllAnimalsFromDate(GetAllAnimalsFromDateRequest) returns (GetAllAnimalsFromDateResponse);
+  rpc GetAllAnimalsFromOrigin(GetAllAnimalsFromOriginRequest) returns (GetAllAnimalsFromOriginResponse);
 }

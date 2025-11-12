@@ -2,6 +2,7 @@ package mmn.pro3kursusopgave.server.model;
 
 import mmn.pro3kursusopgave.server.model.entities.Animal;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public interface AnimalManager {
      * @param weight Vægten på dyret.
      * @param type Arten af dyret.
      */
-    int addAnimal(double weight, String type);
+    int addAnimal(double weight, String type, String origin, long dateTime);
 
     /**
      * Sletter et dyr.
@@ -38,4 +39,8 @@ public interface AnimalManager {
      * @param packageId ID'et på produktet.
      */
     List<Animal> getAllAnimalsInProduct(int packageId);
+
+    List<Animal> getAllAnimalsFromDate(long dateTime);
+
+    List<Animal> getAllAnimalsFromOrigin(String origin);
 }

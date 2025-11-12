@@ -12,7 +12,7 @@ public class Main {
         PackageManager packageManager = new PackageManagerDB();
         TrayManager trayManager = new TrayManagerDB();
 
-        Server server = ServerBuilder.forPort(8080).addService(new SlaughterHouseServiceImpl(animalManager, animalPartManager, packageManager, trayManager)).build();
+        Server server = ServerBuilder.forPort(6969).addService(new SlaughterHouseServiceImpl(animalManager, animalPartManager, packageManager, trayManager)).build();
         try {
             System.out.println("grpc server starter");
             server.start();

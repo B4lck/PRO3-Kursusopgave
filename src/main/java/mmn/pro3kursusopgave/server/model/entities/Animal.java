@@ -4,11 +4,15 @@ public class Animal {
     private final double weight;
     private final String animalType;
     private final int animalId;
+    private final String origin;
+    private final long dateTime;
 
-    public Animal(double weight, String animalType, int animalId) {
+    public Animal(double weight, String animalType, int animalId, String origin, long dateTime) {
         this.weight = weight;
         this.animalType = animalType;
         this.animalId = animalId;
+        this.origin = origin;
+        this.dateTime = dateTime;
     }
 
     public double getWeight() {
@@ -21,6 +25,14 @@ public class Animal {
 
     public int getAnimalId() {
         return animalId;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public long getDateTime() {
+        return dateTime;
     }
 
     @Override
