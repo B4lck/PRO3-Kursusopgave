@@ -22,7 +22,8 @@ CREATE TABLE Tray (
 CREATE TABLE Animal (
                         weight weight_domain NOT NULL,
                         type_of_animal animal_type NOT NULL,
-                        animal_no SERIAL PRIMARY KEY
+                        animal_no SERIAL PRIMARY KEY,
+                        origin VARCHAR NOT NULL
 );
 
 CREATE TABLE AnimalPart (
@@ -100,12 +101,12 @@ VALUES  (20.00, 'pork', 1), -- 1
         (7.50, 'pork', 3),  -- 4
         (20.00, 'beef', 4); -- 5
 
-INSERT INTO Animal (weight, type_of_animal)   -- Animal ID
-VALUES  (390.00, 'beef'),  -- 1
-        (110.00, 'pork'), -- 2
-        (1.7, 'chicken'), -- 3
-        (1.7, 'chicken'), -- 4
-        (25.00, 'lamb');  -- 5
+INSERT INTO Animal (weight, type_of_animal, origin)   -- Animal ID
+VALUES  (390.00, 'beef', 'Jens Hansens Bondegård'),  -- 1
+        (110.00, 'pork', 'Jens Hansens Bondegård'), -- 2
+        (1.7, 'chicken', 'Jens Hansens Bondegård'), -- 3
+        (1.7, 'chicken', 'Jens Hansens Bondegård'), -- 4
+        (25.00, 'lamb', 'Olsens Herregård');  -- 5
 
 INSERT INTO AnimalPart (weight, tray_no, from_animal, description)
 VALUES  (20.00, 5, 1, 'Rib eyes'),
