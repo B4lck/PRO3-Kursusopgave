@@ -5,3 +5,21 @@ option java_multiple_files = true;
 package mmn.pro3kursusopgave;
 
 import "dtoer.proto";
+
+message GetAllTraysResponse {
+  repeated DTOTray trays = 1;
+}
+
+message CreatePackageRequest {
+  repeated DTOTray trays = 1;
+}
+
+message CreatePackageResponse {
+  DTOPackage package = 1;
+}
+
+service PackingService {
+  rpc GetAllTrays (Empty) returns (GetAllTraysResponse);
+  rpc CreatePackage (CreatePackageRequest) returns (CreatePackageResponse);
+}
+

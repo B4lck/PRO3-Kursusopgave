@@ -5,3 +5,28 @@ option java_multiple_files = true;
 package mmn.pro3kursusopgave;
 
 import "dtoer.proto";
+
+message GetAnimalsResponse {
+  repeated DTOAnimal animals = 1;
+}
+
+message AddAnimalPartRequest {
+  double weight = 1;
+  int32 tray = 2;
+  int32 fromAnimal = 3;
+  string description = 4;
+}
+
+message AddAnimalPartResponse {
+  DTOAnimalPart animalPart = 1;
+}
+
+message DeleteAnimalPartRequest {
+  int32 id = 1;
+}
+
+service CuttingService {
+  rpc GetAnimals (Empty) returns (GetAnimalsResponse);
+  rpc AddAnimalPart (AddAnimalPartRequest) returns (AddAnimalPartResponse);
+  rpc DeleteAnimalPart (DeleteAnimalPartRequest) returns (Empty);
+}

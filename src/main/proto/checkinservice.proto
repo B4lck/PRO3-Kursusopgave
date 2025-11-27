@@ -5,3 +5,23 @@ option java_multiple_files = true;
 package mmn.pro3kursusopgave;
 
 import "dtoer.proto";
+
+message RegisterAnimalRequest {
+  double weight = 1;
+  string type = 2;
+  string origin = 3;
+  int64 date = 4;
+}
+
+message RegisterAnimalResponse {
+  DTOAnimal animal = 1;
+}
+
+message DeleteAnimal {
+  int32 id = 1;
+}
+
+service CheckinService {
+  rpc RegisterAnimal (RegisterAnimalRequest) returns (RegisterAnimalResponse);
+  rpc DeleteAnimal (DeleteAnimal) returns (Empty);
+}

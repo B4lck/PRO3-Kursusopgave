@@ -32,3 +32,8 @@ message DTOPackage
   int64 expire_date = 2;
   repeated DTOTray trays = 3;
 }
+
+message Empty
+{
+
+}
