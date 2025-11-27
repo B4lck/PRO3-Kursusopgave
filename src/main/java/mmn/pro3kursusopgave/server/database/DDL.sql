@@ -36,11 +36,12 @@ CREATE TABLE Animal (
 );
 
 CREATE TABLE AnimalPart (
-                            weight weight_domain NOT NULL,
-                            tray_no INT REFERENCES Tray (tray_no) NOT NULL,
-                            from_animal INT REFERENCES Animal (animal_no) NOT NULL,
-                            part_id SERIAL PRIMARY KEY,
-                            description VARCHAR
+                        weight weight_domain NOT NULL,
+                        tray_no INT REFERENCES Tray (tray_no) NOT NULL,
+                        from_animal INT REFERENCES Animal (animal_no) NOT NULL,
+                        part_id SERIAL PRIMARY KEY,
+                        description VARCHAR,
+                        cutting_date BIGINT NOT NULL
 );
 
 CREATE OR REPLACE FUNCTION check_animalpart_type_match()
@@ -117,8 +118,8 @@ VALUES  (390.00, 'beef', 'Jens Hansens Bondegård', 1762902000),  -- 1
         (1.7, 'chicken', 'Jens Hansens Bondegård', 1762902000), -- 4
         (25.00, 'lamb', 'Olsens Herregård', 1762902000);  -- 5
 
-INSERT INTO AnimalPart (weight, tray_no, from_animal, description)
-VALUES  (20.00, 5, 1, 'Rib eyes'),
-        (20.00, 1, 2, 'Flæskesteg'),
-        (1.7, 2, 3, 'Hel kylling'),
-        (1.7, 2, 4, 'Hel kylling');
+INSERT INTO AnimalPart (weight, tray_no, from_animal, description, cutting_date)
+VALUES  (20.00, 5, 1, 'Rib eyes', 1762902120),
+        (20.00, 1, 2, 'Flæskesteg', 1762902120),
+        (1.7, 2, 3, 'Hel kylling', 1762902120),
+        (1.7, 2, 4, 'Hel kylling', 1762902120);

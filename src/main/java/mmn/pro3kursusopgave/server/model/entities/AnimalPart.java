@@ -6,13 +6,15 @@ public class AnimalPart {
     private final int fromAnimalId;
     private final int animalPartId;
     private final String description;
+    private final long cuttingDate;
 
-    public AnimalPart(double weight, int trayNumber, int fromAnimalId, int animalPartId, String description) {
+    public AnimalPart(double weight, int trayNumber, int fromAnimalId, int animalPartId, String description, long cuttingDate) {
         this.weight = weight;
         this.trayNumber = trayNumber;
         this.fromAnimalId = fromAnimalId;
         this.animalPartId = animalPartId;
         this.description = description;
+        this.cuttingDate = cuttingDate;
     }
 
     public double getWeight() {
@@ -33,6 +35,10 @@ public class AnimalPart {
 
     public String getDescription() {
         return description;
+    }
+
+    public long getCuttingDate() {
+        return cuttingDate;
     }
 
     @Override

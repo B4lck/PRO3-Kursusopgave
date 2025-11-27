@@ -33,7 +33,7 @@ public interface AnimalPartManager {
      * @param fromAnimal ID'et på det dyr delen er fra.
      * @param description Beskrivelse af delen. TODO: Skal nok fjernes, og blive til en part type?
      */
-    int addAnimalPart(double weight, int tray, int fromAnimal, String description);
+    int addAnimalPart(double weight, int tray, int fromAnimal, String description, long cuttingDate);
 
     /**
      * Sletter en animal del.

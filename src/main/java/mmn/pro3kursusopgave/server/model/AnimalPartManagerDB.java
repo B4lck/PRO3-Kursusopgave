@@ -37,8 +37,9 @@ public class AnimalPartManagerDB implements AnimalPartManager{
                 int fromAnimal = res.getInt("from_animal");
                 int id = res.getInt("part_id");
                 String description = res.getString("description");
+                long cuttingDate = res.getLong("cutting_date");
 
-                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, id, description);
+                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, id, description, cuttingDate);
                 animalParts.put(id, animal);
                 list.add(animal);
             }
@@ -71,8 +72,9 @@ public class AnimalPartManagerDB implements AnimalPartManager{
                 int fromAnimal = res.getInt("from_animal");
                 int partId = res.getInt("part_id");
                 String description = res.getString("description");
+                long cuttingDate  = res.getLong("cutting_date");
 
-                animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, description);
+                animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, description, cuttingDate);
                 animalParts.put(partId, animal);
                 return animal;
             } else {
@@ -98,8 +100,9 @@ public class AnimalPartManagerDB implements AnimalPartManager{
                 int fromAnimal = res.getInt("from_animal");
                 int partId = res.getInt("part_id");
                 String description = res.getString("description");
+                long cuttingDate = res.getLong("cutting_date");
 
-                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, description);
+                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, description, cuttingDate);
                 animalParts.put(partId, animal);
                 list.add(animal);
             }
@@ -111,18 +114,19 @@ public class AnimalPartManagerDB implements AnimalPartManager{
     }
 
     @Override
-    public int addAnimalPart(double weight, int tray, int fromAnimal, String description) {
+    public int addAnimalPart(double weight, int tray, int fromAnimal, String description, long cuttingDate) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO slaughter_house.animalpart (weight, tray_no, from_animal, description) VALUES (?, ?, ?, ?) RETURNING slaughter_house.animalpart.part_id as id");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO slaughter_house.animalpart (weight, tray_no, from_animal, description, cutting_date) VALUES (?, ?, ?, ?, ?) RETURNING slaughter_house.animalpart.part_id as id");
             statement.setDouble(1, weight);
             statement.setInt(2, tray);
             statement.setInt(3, fromAnimal);
             statement.setString(4, description);
+            statement.setLong(5, cuttingDate);
 
             ResultSet res = statement.executeQuery();
             if (res.next()) {
                 int id = res.getInt("id");
-                animalParts.put(id, new AnimalPart(weight, tray, fromAnimal, id, description));
+                animalParts.put(id, new AnimalPart(weight, tray, fromAnimal, id, description, cuttingDate));
                 return id;
             } else {
                 throw new RuntimeException("Kunne ikke indsætte");
