@@ -39,4 +39,9 @@ public interface TrayManager {
      * @param packageNumber ID'et på pakken
      */
     List<Tray> getAllTraysInPackage(int packageNumber);
+
+    /**
+     * Henter alle trays som ikke er i en pakke
+     */
+    List<Tray> getAllTraysNotInPackage();
 }

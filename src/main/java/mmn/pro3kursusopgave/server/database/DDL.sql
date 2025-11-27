@@ -16,7 +16,7 @@ CREATE DOMAIN weight_domain AS NUMERIC(6,2);
 
 CREATE TABLE Package (
                          package_no SERIAL PRIMARY KEY,
-                         expire_date DATE NOT NULL
+                         expire_date BIGINT NOT NULL
 );
 
 CREATE TABLE Tray (
@@ -98,10 +98,10 @@ EXECUTE FUNCTION is_overweight();
 ------------------------------------------------------------------------
 
 INSERT INTO Package (expire_date)
-VALUES  ('2025-10-22'),
-        ('2025-10-23'),
-        ('2025-10-24'),
-        ('2025-10-25');
+VALUES  (1762903000),
+        (1762903000),
+        (1762903000),
+        (1762903000);
 
 INSERT INTO Tray (max_weight, type_of_part)      -- Tray ID
 VALUES  (20.00, 'Flæskesteg'), -- 1

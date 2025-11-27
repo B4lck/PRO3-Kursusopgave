@@ -34,7 +34,7 @@ public class PackageManagerDB implements PackageManager{
 
             while (res.next()) {
                 int packageNumber = res.getInt("package_no");
-                LocalDate expireDate = res.getDate("expire_date").toLocalDate();
+                long expireDate = res.getLong("expire_date");
 
                 List<Tray> trays = trayManager.getAllTraysInPackage(packageNumber);
 
@@ -58,7 +58,7 @@ public class PackageManagerDB implements PackageManager{
 
             if (res.next()) {
                 int packageNumber = res.getInt("package_no");
-                LocalDate expireDate = res.getDate("expire_date").toLocalDate();
+                long expireDate = res.getLong("expire_date");
 
                 List<Tray> trays = trayManager.getAllTraysInPackage(packageNumber);
 
@@ -74,10 +74,10 @@ public class PackageManagerDB implements PackageManager{
     }
 
     @Override
-    public int addPackage(LocalDate expireDate) {
+    public int addPackage(long expireDate) {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO package (expire_date) VALUES (?) RETURNING package_no as id");
-            statement.setString(1, expireDate.toString());
+            statement.setLong(1, expireDate);
 
             ResultSet res = statement.executeQuery();
             if (res.next()) {
@@ -107,6 +107,19 @@ public class PackageManagerDB implements PackageManager{
             else {
                 throw new RuntimeException("Findes ikke");
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void addTrayToPackage(int trayId, int packageId) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO trayinpackage (tray_no, package_no) VALUES (?, ?)");
+            statement.setInt(1, trayId);
+            statement.setInt(2, packageId);
+            
+            statement.execute();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -26,11 +26,19 @@ public interface PackageManager {
      * TODO: Skal tage en liste af tray id'er med hvor kødet er fra.
      * @param expireDate Udløbsdatoen af produktet.
      */
-    int addPackage(LocalDate expireDate);
+    int addPackage(long expireDate);
 
     /**
      * Sletter et produkt
      * @param id ID'et på produktet.
      */
     int deletePackage(int id);
+
+    /**
+     * Indsætter tray i en pakke
+     * @param trayId ID'et på tray
+     * @param packageId ID'et på package
+     * @throws RuntimeException Hvis package / tray ikke findes
+     */
+    void addTrayToPackage(int trayId, int packageId);
 }

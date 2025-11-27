@@ -132,4 +132,27 @@ public class TrayManagerDB implements TrayManager {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public List<Tray> getAllTraysNotInPackage() {
+        List<Tray> returnList = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM slaughter_house.tray WHERE tray_no NOT IN (SELECT tray_no FROM trayinpackage)");
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                double maxWeight = res.getDouble("max_weight");
+                String type = res.getString("type_of_part");
+                int trayNumber = res.getInt("tray_no");
+
+                Tray tray = new Tray(maxWeight, type, trayNumber);
+                returnList.add(tray);
+                trays.put(trayNumber, tray);
+            }
+
+            return returnList;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

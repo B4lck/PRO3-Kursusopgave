@@ -33,7 +33,7 @@ message DTOPackage
 {
   int32 packageNo = 1;
   int64 expire_date = 2;
-  repeated DTOTray trays = 3;
+  repeated int32 trays = 3;
 }
 
 message Empty
