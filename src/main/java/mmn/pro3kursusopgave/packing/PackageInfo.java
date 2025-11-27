@@ -1,14 +1,14 @@
 package mmn.pro3kursusopgave.packing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PackageInfo {
-    private List<Integer> trays;
+    private List<Integer> trays = new ArrayList<>();
     private long expireDate;
     private boolean uploaded;
 
-    public PackageInfo(List<Integer> trays, long expireDate) {
-        this.trays = trays;
+    public PackageInfo(long expireDate) {
         this.expireDate = expireDate;
     }
 
@@ -22,6 +22,10 @@ public class PackageInfo {
 
     public void addTray(int trayId) {
         trays.add(trayId);
+    }
+
+    public int getCount() {
+        return trays.size();
     }
 
     public boolean isUploaded() {

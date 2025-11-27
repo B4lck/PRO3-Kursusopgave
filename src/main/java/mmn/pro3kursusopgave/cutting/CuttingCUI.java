@@ -24,7 +24,7 @@ public class CuttingCUI {
                 System.out.println("  - KØD BESKRIVELSE: " + currentTray.getTypeOfPart());
                 System.out.println("  - MAKS. VÆGT: " + currentTray.getMaxWeight());
                 System.out.println("  - VÆGT: " + currentTray.getCurrentWeight());
-                System.out.println("  - Antal dele: " + currentTray.getCount());
+                System.out.println("  - ANTAL DELE: " + currentTray.getCount());
             } else {
                 System.out.println("  - \u001B[31mINGEN TRAY\u001B[0m, Brug valgmulighed 1 for at oprette et tray");
             }
