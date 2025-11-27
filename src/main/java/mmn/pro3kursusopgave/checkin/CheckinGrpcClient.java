@@ -1,6 +1,5 @@
 package mmn.pro3kursusopgave.checkin;
 
-import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
@@ -8,8 +7,6 @@ import mmn.pro3kursusopgave.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 
 @Service
@@ -17,23 +14,15 @@ public class CheckinGrpcClient {
 
     private final CheckinServiceGrpc.CheckinServiceBlockingStub stub;
 
-    private Queue<RegisterAnimalRequest> requestQueue;
+    private final Queue<RegisterAnimalRequest> requestQueue = new ArrayDeque<>();
 
     public CheckinGrpcClient () {
         var channel = ManagedChannelBuilder.forAddress("localhost", 6969).usePlaintext().build();
         stub = CheckinServiceGrpc.newBlockingStub(channel);
-
-        requestQueue = new ArrayDeque<>();
     }
 
-    public boolean registerAnimal(double weight, String type, String origin, long date) {
-        RegisterAnimalRequest req = RegisterAnimalRequest.newBuilder()
-                    .setWeight(weight)
-                    .setType(type)
-                    .setOrigin(origin)
-                    .setDate(date)
-                    .build();
-        requestQueue.add(req);
+    public boolean save() {
+        System.out.println("Uploader " + requestQueue.size() + " dyr");
         try {
             try {
                 while (!requestQueue.isEmpty()) {
@@ -51,5 +40,22 @@ public class CheckinGrpcClient {
         }
 
         return false;
+    }
+
+    public boolean registerAnimal(double weight, String type, String origin, long date) {
+        RegisterAnimalRequest req = RegisterAnimalRequest.newBuilder()
+                    .setWeight(weight)
+                    .setType(type)
+                    .setOrigin(origin)
+                    .setDate(date)
+                    .build();
+
+        requestQueue.add(req);
+
+        return save();
+    }
+
+    public int getQueueSize() {
+        return requestQueue.size();
     }
 }

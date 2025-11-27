@@ -36,6 +36,8 @@ public class CuttingCUI {
             System.out.println("  3. GEM");
             System.out.println("     (gemmer det nuværende tray + skæringer, hvis netværket har været nede, vil dette også gemme alle lokalt-gemte trays)");
 
+            if (client.getQueueSize() > 0) System.out.println("\u001B[31mDER ER " + client.getQueueSize() + " TRAY(S) SOM IKKE ER BLEVET UPLOADET, PRØV IGEN MED 3. FUNKTION\u001B[0m");
+
             navi:
             while (true) {
                 String choice = input.nextLine().trim();

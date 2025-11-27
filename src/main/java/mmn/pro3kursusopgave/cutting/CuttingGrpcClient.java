@@ -1,6 +1,8 @@
 package mmn.pro3kursusopgave.cutting;
 
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import mmn.pro3kursusopgave.*;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +34,12 @@ public class CuttingGrpcClient {
         }
 
         try {
-            while (!trayQueue.isEmpty()) {
-                TrayInfo trayToUpload = trayQueue.peek();
+            try {
+                while (!trayQueue.isEmpty()) {
+                    TrayInfo trayToUpload = trayQueue.peek();
 
-                // 1. Lav tray
-                int id;
+                    // 1. Lav tray
+                    int id;
 
                 if (!trayToUpload.isUploaded()) {
                     var res = stub.createTray(
@@ -48,11 +51,10 @@ public class CuttingGrpcClient {
 
                     id = res.getTray().getTrayNo();
 
-                    trayToUpload.setUploaded(id);
-                }
-                else {
-                    id = trayToUpload.getUploadedId();
-                }
+                        trayToUpload.setUploaded(id);
+                    } else {
+                        id = trayToUpload.getUploadedId();
+                    }
 
                 // 2. Tilføj parts
                 for (PartInfo part : trayToUpload.getParts()) {
@@ -74,11 +76,19 @@ public class CuttingGrpcClient {
                 trayQueue.remove();
             }
 
-            return true;
+                return true;
+            } catch (StatusRuntimeException e) {
+                if (e.getStatus().getCode() != Status.Code.UNAVAILABLE) throw e;
+            }
         } catch (Exception e) {
+            trayQueue.remove();
             e.printStackTrace();
         }
 
         return false;
+    }
+
+    public int getQueueSize() {
+        return trayQueue.size();
     }
 }
