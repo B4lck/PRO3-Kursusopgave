@@ -12,6 +12,7 @@ message GetAllTraysResponse {
 
 message CreatePackageRequest {
   repeated DTOTray trays = 1;
+  int64 expireDate = 2;
 }
 
 message CreatePackageResponse {
