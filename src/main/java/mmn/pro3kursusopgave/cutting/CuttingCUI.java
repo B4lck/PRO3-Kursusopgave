@@ -4,12 +4,15 @@ import java.time.Instant;
 import java.util.Scanner;
 
 public class CuttingCUI {
+    private final CuttingGrpcClient client;
     Scanner input;
 
     TrayInfo currentTray;
 
-    public CuttingCUI() {
+    public CuttingCUI(CuttingGrpcClient client) {
         input = new Scanner(System.in);
+
+        this.client = client;
     }
 
     public void start() {
@@ -73,7 +76,7 @@ public class CuttingCUI {
             return;
         }
 
-        System.out.println("Opretter nyt tray");
+        System.out.println("Opretter ny skæring");
         System.out.println("  - beskrivelse af kød: " + currentTray.getDescription());
         System.out.print("  - ID på dyr: ");
         int id = Integer.parseInt(input.nextLine());
@@ -92,7 +95,7 @@ public class CuttingCUI {
     public void saveTray() {
         System.out.println("Gemmer trays");
 
-        // TODO: Gem trays
+        client.createTray(currentTray);
 
         currentTray = null;
 
