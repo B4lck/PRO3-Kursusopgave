@@ -22,7 +22,14 @@ public class CuttingGrpcClient {
     }
 
     public boolean createTray(TrayInfo tray) {
-        trayQueue.add(tray);
+        if (tray != null) {
+            trayQueue.add(tray);
+        }
+
+        if (trayQueue.isEmpty()) {
+            System.out.println("Ingen trays at gemme");
+            return true;
+        }
 
         try {
             while (!trayQueue.isEmpty()) {
