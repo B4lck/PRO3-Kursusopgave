@@ -1,4 +1,4 @@
-package mmn.pro3kursusopgave.client.responses;
+package mmn.pro3kursusopgave.webapi.responses;
 
 // Simpel DTO til REST (ingen protobuf-magiske felter)
 public class AnimalResponse {

@@ -1,9 +1,9 @@
-package mmn.pro3kursusopgave.client;
+package mmn.pro3kursusopgave.webapi;
 
 
 import mmn.pro3kursusopgave.DTOAnimal;
 
-import mmn.pro3kursusopgave.client.responses.AnimalResponse;
+import mmn.pro3kursusopgave.webapi.responses.AnimalResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

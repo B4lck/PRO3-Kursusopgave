@@ -1,11 +1,10 @@
-package mmn.pro3kursusopgave.client;
+package mmn.pro3kursusopgave.webapi;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import mmn.pro3kursusopgave.*;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
