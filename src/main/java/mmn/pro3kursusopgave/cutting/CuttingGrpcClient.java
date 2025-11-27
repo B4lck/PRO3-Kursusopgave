@@ -38,7 +38,7 @@ public class CuttingGrpcClient {
                 // 1. Lav tray
                 int id;
 
-                if (!tray.isUploaded()) {
+                if (!trayToUpload.isUploaded()) {
                     var res = stub.createTray(
                             CreateTrayRequest.newBuilder()
                                     .setMaxWeight(trayToUpload.getMaxWeight())
@@ -48,10 +48,10 @@ public class CuttingGrpcClient {
 
                     id = res.getTray().getTrayNo();
 
-                    tray.setUploaded(id);
+                    trayToUpload.setUploaded(id);
                 }
                 else {
-                    id = tray.getUploadedId();
+                    id = trayToUpload.getUploadedId();
                 }
 
                 // 2. Tilføj parts
