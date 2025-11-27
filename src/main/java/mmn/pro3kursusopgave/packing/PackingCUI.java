@@ -34,7 +34,7 @@ public class PackingCUI {
             System.out.println("  3. GEM");
             System.out.println("     (gemmer produktet, hvis netværket har været nede, vil dette også gemme alle lokalt-gemte produkter)");
 
-//            if (client.getQueueSize() > 0) System.out.println("\u001B[31mDER ER " + client.getQueueSize() + " PRODUKT(ER) SOM IKKE ER BLEVET UPLOADET, PRØV IGEN MED 3. FUNKTION\u001B[0m");
+            if (client.getQueueSize() > 0) System.out.println("\u001B[31mDER ER " + client.getQueueSize() + " PRODUKT(ER) SOM IKKE ER BLEVET UPLOADET, PRØV IGEN MED 3. FUNKTION\u001B[0m");
 
             navi:
             while (true) {
@@ -86,7 +86,7 @@ public class PackingCUI {
     public void savePackage() {
         System.out.println("Gemmer packages");
 
-//        client.createPackage(currentPackage);
+        client.createPackage(currentPackage);
 
         currentPackage = null;
 
