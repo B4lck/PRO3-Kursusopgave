@@ -27,7 +27,7 @@ public class CuttingGrpcServiceImpl extends CuttingServiceGrpc.CuttingServiceImp
     public void addAnimalPart(AddAnimalPartRequest request, StreamObserver<AddAnimalPartResponse> responseStreamObserver) {
         AddAnimalPartResponse.Builder res = AddAnimalPartResponse.newBuilder();
 
-        int animalPartId = animalPartManager.addAnimalPart(request.getWeight(), request.getTray(), request.getFromAnimal(), request.getDescription(), request.getCuttingDate());
+        int animalPartId = animalPartManager.addAnimalPart(request.getWeight(), request.getTray(), request.getFromAnimal(), request.getTypeOfPart(), request.getCuttingDate());
 
         Animal fromAnimal = animalManager.getAnimal(request.getFromAnimal());
         DTOAnimal fromDTOAnimal = DTOAnimal.newBuilder()
@@ -42,7 +42,7 @@ public class CuttingGrpcServiceImpl extends CuttingServiceGrpc.CuttingServiceImp
                         .setTrayNo(request.getTray())
                         .setFrom(fromDTOAnimal)
                         .setPartId(animalPartId)
-                        .setDescription(request.getDescription())
+                        .setTypeOfPart(request.getTypeOfPart())
                         .setCuttingDate(request.getCuttingDate())
                         .build());
 
@@ -54,12 +54,12 @@ public class CuttingGrpcServiceImpl extends CuttingServiceGrpc.CuttingServiceImp
     public void createTray(CreateTrayRequest request, StreamObserver<CreateTrayResponse> responseStreamObserver) {
         CreateTrayResponse.Builder res = CreateTrayResponse.newBuilder();
 
-        int trayId = trayManager.addTray(request.getMaxWeight(), request.getType());
+        int trayId = trayManager.addTray(request.getMaxWeight(), request.getTypeOfPart());
 
         DTOTray returnTray = DTOTray.newBuilder()
                 .setTrayNo(trayId)
                 .setMaxWeight(request.getMaxWeight())
-                .setTypeOfAnimal(request.getType())
+                .setTypeOfPart(request.getTypeOfPart())
                 .build();
 
         res.setTray(returnTray);

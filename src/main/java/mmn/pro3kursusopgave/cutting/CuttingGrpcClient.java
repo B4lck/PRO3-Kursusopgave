@@ -42,7 +42,7 @@ public class CuttingGrpcClient {
                     var res = stub.createTray(
                             CreateTrayRequest.newBuilder()
                                     .setMaxWeight(trayToUpload.getMaxWeight())
-                                    .setType(trayToUpload.getDescription())
+                                    .setTypeOfPart(trayToUpload.getTypeOfPart())
                                     .build()
                     );
 
@@ -55,14 +55,14 @@ public class CuttingGrpcClient {
                 }
 
                 // 2. Tilføj parts
-                for (PartInfo part : tray.getParts()) {
+                for (PartInfo part : trayToUpload.getParts()) {
                     if (part.isUploaded()) continue;
 
                     var partRes = stub.addAnimalPart(
                             AddAnimalPartRequest.newBuilder()
                                     .setTray(id)
                                     .setCuttingDate(part.getCuttingDate())
-                                    .setDescription(tray.getDescription())
+                                    .setTypeOfPart(tray.getTypeOfPart())
                                     .setFromAnimal(part.getFromAnimal())
                                     .setWeight(part.getWeight())
                                     .build()

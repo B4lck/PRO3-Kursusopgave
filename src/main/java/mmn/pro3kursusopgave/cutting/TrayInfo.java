@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrayInfo {
-    private String description;
+    private String typeOfPart;
     private double maxWeight;
     private double currentWeight;
     private int count;
@@ -13,12 +13,12 @@ public class TrayInfo {
     private int uploadedId;
 
     public TrayInfo(String description, double maxWeight) {
-        this.description = description;
+        this.typeOfPart = description;
         this.maxWeight = maxWeight;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTypeOfPart() {
+        return typeOfPart;
     }
 
     public double getMaxWeight() {

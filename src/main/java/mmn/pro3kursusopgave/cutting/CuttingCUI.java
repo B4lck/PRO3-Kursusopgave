@@ -21,7 +21,7 @@ public class CuttingCUI {
         while (true) {
             System.out.println("\u001B[33mNUVÆRENDE TRAY:\u001B[0m");
             if (currentTray != null) {
-                System.out.println("  - KØD BESKRIVELSE: " + currentTray.getDescription());
+                System.out.println("  - KØD BESKRIVELSE: " + currentTray.getTypeOfPart());
                 System.out.println("  - MAKS. VÆGT: " + currentTray.getMaxWeight());
                 System.out.println("  - VÆGT: " + currentTray.getCurrentWeight());
                 System.out.println("  - Antal dele: " + currentTray.getCount());
@@ -77,14 +77,14 @@ public class CuttingCUI {
         }
 
         System.out.println("Opretter ny skæring");
-        System.out.println("  - beskrivelse af kød: " + currentTray.getDescription());
+        System.out.println("  - beskrivelse af kød: " + currentTray.getTypeOfPart());
         System.out.print("  - ID på dyr: ");
         int id = Integer.parseInt(input.nextLine());
         System.out.print("  - vægt (maks. " + (currentTray.getMaxWeight() - currentTray.getCurrentWeight()) + "): ");
         double weight = Double.parseDouble(input.nextLine());
         long date = Instant.now().toEpochMilli();
 
-        PartInfo part = new PartInfo(weight, id, currentTray.getDescription(), date);
+        PartInfo part = new PartInfo(weight, id, currentTray.getTypeOfPart(), date);
 
         currentTray.addPart(part);
 
