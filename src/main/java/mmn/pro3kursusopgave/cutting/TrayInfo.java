@@ -9,6 +9,8 @@ public class TrayInfo {
     private double currentWeight;
     private int count;
     private List<PartInfo> parts = new ArrayList<>();
+    private boolean uploaded;
+    private int uploadedId;
 
     public TrayInfo(String description, double maxWeight) {
         this.description = description;
@@ -30,6 +32,9 @@ public class TrayInfo {
     public int getCount() {
         return count;
     }
+    public List<PartInfo> getParts() {
+        return parts;
+    }
 
     public void addPart(PartInfo part) {
         double weight = part.getWeight();
@@ -38,5 +43,18 @@ public class TrayInfo {
         count++;
         currentWeight += weight;
         parts.add(part);
+    }
+
+    public boolean isUploaded() {
+        return uploaded;
+    }
+
+    public int getUploadedId() {
+        return uploadedId;
+    }
+
+    public void setUploaded(int id) {
+        this.uploaded = true;
+        this.uploadedId = id;
     }
 }

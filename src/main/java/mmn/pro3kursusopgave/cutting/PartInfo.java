@@ -6,6 +6,8 @@ public class PartInfo {
     private String description;
     private long cuttingDate;
 
+    private boolean uploaded;
+
     public PartInfo(double weight, int fromAnimal, String description, long cuttingDate) {
         this.weight = weight;
         this.fromAnimal = fromAnimal;
@@ -27,5 +29,13 @@ public class PartInfo {
 
     public long getCuttingDate() {
         return cuttingDate;
+    }
+
+    public boolean isUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded() {
+        this.uploaded = true;
     }
 }

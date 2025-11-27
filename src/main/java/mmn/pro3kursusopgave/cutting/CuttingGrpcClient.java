@@ -12,61 +12,66 @@ public class CuttingGrpcClient {
 
     private final CuttingServiceGrpc.CuttingServiceBlockingStub stub;
 
-    private final Queue<AddAnimalPartRequest> animalPartRequests;
-    private final Queue<CreateTrayRequest> trayQueue;
+    private final Queue<TrayInfo> trayQueue;
 
-    public CuttingGrpcClient () {
+    public CuttingGrpcClient() {
         var channel = ManagedChannelBuilder.forAddress("localhost", 6969).usePlaintext().build();
         stub = CuttingServiceGrpc.newBlockingStub(channel);
 
-        animalPartRequests = new ArrayDeque<>();
         trayQueue = new ArrayDeque<>();
     }
 
-    public boolean addAnimalPart(double weight, int tray, int fromAnimal, String description, long cuttingDate) {
-        AddAnimalPartRequest req = AddAnimalPartRequest.newBuilder()
-                .setWeight(weight)
-                .setTray(tray)
-                .setFromAnimal(fromAnimal)
-                .setDescription(description)
-                .setCuttingDate(cuttingDate)
-                .build();
-
-        animalPartRequests.add(req);
-
-        try {
-            while (!animalPartRequests.isEmpty()) {
-                var res = stub.addAnimalPart(animalPartRequests.peek());
-                animalPartRequests.remove();
-                System.out.println("Sender dyredel: " + res.getAnimalPart());
-            }
-            return true;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean createTray(double maxWeight, String type) {
-        CreateTrayRequest req = CreateTrayRequest.newBuilder()
-                .setMaxWeight(maxWeight)
-                .setType(type)
-                .build();
-
-        trayQueue.add(req);
+    public boolean createTray(TrayInfo tray) {
+        trayQueue.add(tray);
 
         try {
             while (!trayQueue.isEmpty()) {
-                var res = stub.createTray(trayQueue.peek());
+                TrayInfo trayToUpload = trayQueue.peek();
+
+                // 1. Lav tray
+                int id;
+
+                if (!tray.isUploaded()) {
+                    var res = stub.createTray(
+                            CreateTrayRequest.newBuilder()
+                                    .setMaxWeight(trayToUpload.getMaxWeight())
+                                    .setType(trayToUpload.getDescription())
+                                    .build()
+                    );
+
+                    id = res.getTray().getTrayNo();
+
+                    tray.setUploaded(id);
+                }
+                else {
+                    id = tray.getUploadedId();
+                }
+
+                // 2. Tilføj parts
+                for (PartInfo part : tray.getParts()) {
+                    if (part.isUploaded()) continue;
+
+                    var partRes = stub.addAnimalPart(
+                            AddAnimalPartRequest.newBuilder()
+                                    .setTray(id)
+                                    .setCuttingDate(part.getCuttingDate())
+                                    .setDescription(tray.getDescription())
+                                    .setFromAnimal(part.getFromAnimal())
+                                    .setWeight(part.getWeight())
+                                    .build()
+                    );
+
+                    part.setUploaded();
+                }
+
                 trayQueue.remove();
-                System.out.println("Opretter tray med type: " + res.getTray().getTypeOfAnimal());
             }
+
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+
+        return false;
     }
 }
