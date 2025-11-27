@@ -1,10 +1,7 @@
 package mmn.pro3kursusopgave.packing;
 
-import mmn.pro3kursusopgave.cutting.CuttingCUI;
-import mmn.pro3kursusopgave.cutting.CuttingGrpcClient;
-
 public class Main {
-    static PackingCUI cui = new PackingCUI(/* INDSÆT KLIENT HER */);
+    static PackingCUI cui = new PackingCUI(new PackingGrpcClient());
 
     public static void main(String[] args) {
         cui.start();

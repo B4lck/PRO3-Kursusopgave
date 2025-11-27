@@ -4,23 +4,19 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import mmn.pro3kursusopgave.*;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-@Service
 public class CuttingGrpcClient {
 
     private final CuttingServiceGrpc.CuttingServiceBlockingStub stub;
 
-    private final Queue<TrayInfo> trayQueue;
+    private final Queue<TrayInfo> trayQueue = new ArrayDeque<>();
 
     public CuttingGrpcClient() {
         var channel = ManagedChannelBuilder.forAddress("localhost", 6969).usePlaintext().build();
         stub = CuttingServiceGrpc.newBlockingStub(channel);
-
-        trayQueue = new ArrayDeque<>();
     }
 
     public boolean createTray(TrayInfo tray) {

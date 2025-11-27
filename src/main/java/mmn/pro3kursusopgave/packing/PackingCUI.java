@@ -1,21 +1,18 @@
 package mmn.pro3kursusopgave.packing;
 
-import mmn.pro3kursusopgave.cutting.PartInfo;
-import mmn.pro3kursusopgave.cutting.TrayInfo;
-
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Scanner;
 
 public class PackingCUI {
-//    private final PackingGrpcClient client;
+    private final PackingGrpcClient client;
     Scanner input;
 
     PackageInfo currentPackage;
 
-    public PackingCUI(/*PackingGrpcClient client*/) {
+    public PackingCUI(PackingGrpcClient client) {
         input = new Scanner(System.in);
-//        this.client = client;
+        this.client = client;
     }
 
     public void start() {
@@ -27,7 +24,7 @@ public class PackingCUI {
                 System.out.println("  - ANTAL DELE: " + currentPackage.getCount());
                 System.out.println("  - EXPIRY DATE: " + Instant.ofEpochMilli(currentPackage.getExpireDate()).atZone(ZoneId.systemDefault()));
             } else {
-                System.out.println("  - \u001B[31mINGEN TRAY\u001B[0m, Brug valgmulighed 1 for at oprette en package/et produkt");
+                System.out.println("  - \u001B[31mINGEN PACKAGE\u001B[0m, Brug valgmulighed 1 for at oprette en package/et produkt");
             }
             System.out.println("\u001B[33mVÆLG:\u001B[0m");
             System.out.println("  1. NY PACKAGE/PRODUKT");
@@ -65,10 +62,10 @@ public class PackingCUI {
             savePackage();
         }
 
-        System.out.println("Opretter nyt tray");
+        System.out.println("Opretter en ny package/produkt");
         System.out.print("  - hvor mange dage indtil expiry: ");
         double days = Double.parseDouble(input.nextLine());
-        currentPackage = new PackageInfo(Instant.now().toEpochMilli() + (long)(days * 24 * 60 * 60 * 1000));
+        currentPackage = new PackageInfo(Instant.now().toEpochMilli() + (long) (days * 24 * 60 * 60 * 1000));
     }
 
     public void addTrayToPackage() {

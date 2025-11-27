@@ -4,12 +4,10 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import mmn.pro3kursusopgave.*;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-@Service
 public class CheckinGrpcClient {
 
     private final CheckinServiceGrpc.CheckinServiceBlockingStub stub;
