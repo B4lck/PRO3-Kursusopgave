@@ -17,11 +17,11 @@ message RegisterAnimalResponse {
   DTOAnimal animal = 1;
 }
 
-message DeleteAnimal {
+message DeleteAnimalMessage {
   int32 id = 1;
 }
 
 service CheckinService {
   rpc RegisterAnimal (RegisterAnimalRequest) returns (RegisterAnimalResponse);
-  rpc DeleteAnimal (DeleteAnimal) returns (Empty);
+  rpc DeleteAnimal (DeleteAnimalMessage) returns (Empty);
 }
