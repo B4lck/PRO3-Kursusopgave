@@ -24,14 +24,19 @@ public interface TrayManager {
      * Tilføjer et tray.
      * @param max_weight Vægten af tray.
      * @param animalType Arten af dyret. TODO: Skal være en animal part type
-     * @param packageNumber Nummeret på den package som trayet bliver en del af. TODO: Skal være på PackageManager.addPackage
      * @return ID'et på trayet
      */
-    int addTray(double max_weight, String animalType, int packageNumber);
+    int addTray(double max_weight, String animalType);
 
     /**
      * Sletter et tray
      * @param id ID'et på trayet
      */
     int deleteTray(int id);
+
+    /**
+     * Henter alle trays i en pakke
+     * @param packageNumber ID'et på pakken
+     */
+    List<Tray> getAllTraysInPackage(int packageNumber);
 }

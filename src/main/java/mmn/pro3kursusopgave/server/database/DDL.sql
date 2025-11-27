@@ -22,7 +22,6 @@ CREATE TABLE Package (
 CREATE TABLE Tray (
                       max_weight weight_domain NOT NULL,
                       type_of_animal animal_type NOT NULL,
-                      package_no INT REFERENCES Package (package_no) NOT NULL,
                       tray_no SERIAL PRIMARY KEY
 );
 
@@ -42,6 +41,11 @@ CREATE TABLE AnimalPart (
                         part_id SERIAL PRIMARY KEY,
                         description VARCHAR,
                         cutting_date BIGINT NOT NULL
+);
+
+CREATE TABLE TrayInPackage (
+                        tray_no INT REFERENCES Tray (tray_no) PRIMARY KEY,
+                        package_no INT REFERENCES Package (package_no) NOT NULL
 );
 
 CREATE OR REPLACE FUNCTION check_animalpart_type_match()
@@ -104,12 +108,19 @@ VALUES  ('2025-10-22'),
         ('2025-10-24'),
         ('2025-10-25');
 
-INSERT INTO Tray (max_weight, type_of_animal, package_no)      -- Tray ID
-VALUES  (20.00, 'pork', 1), -- 1
-        (5.00, 'chicken', 2),  -- 2
-        (12.00, 'lamb', 2), -- 3
-        (7.50, 'pork', 3),  -- 4
-        (20.00, 'beef', 4); -- 5
+INSERT INTO Tray (max_weight, type_of_animal)      -- Tray ID
+VALUES  (20.00, 'pork'), -- 1
+        (5.00, 'chicken'),  -- 2
+        (12.00, 'lamb'), -- 3
+        (7.50, 'pork'),  -- 4
+        (20.00, 'beef'); -- 5
+
+INSERT INTO trayinpackage (tray_no, package_no)
+VALUES (1, 1),
+       (2,2),
+       (3,3),
+       (4,4);
+
 
 INSERT INTO Animal (weight, type_of_animal, origin, dateTime)   -- Animal ID
 VALUES  (390.00, 'beef', 'Jens Hansens Bondegård', 1762902000),  -- 1

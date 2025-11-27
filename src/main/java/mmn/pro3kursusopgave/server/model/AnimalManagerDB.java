@@ -131,7 +131,7 @@ public class AnimalManagerDB implements AnimalManager
         List<Animal> returnList = new ArrayList<>();
 
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT slaughter_house.animal.animal_no as id, slaughter_house.animal.type_of_animal as type, slaughter_house.animal.weight as weight, slaughter_house.animal.origin as origin, slaughter_house.animal.dateTime as dateTime FROM slaughter_house.animal INNER JOIN slaughter_house.animalpart a on slaughter_house.animal.animal_no = a.from_animal INNER JOIN slaughter_house.tray t on t.tray_no = a.tray_no WHERE t.package_no = ?;");
+            PreparedStatement statement = connection.prepareStatement("SELECT slaughter_house.animal.animal_no as id, slaughter_house.animal.type_of_animal as type, slaughter_house.animal.weight as weight, slaughter_house.animal.origin as origin, slaughter_house.animal.dateTime as dateTime FROM slaughter_house.animal INNER JOIN slaughter_house.animalpart a on slaughter_house.animal.animal_no = a.from_animal INNER JOIN slaughter_house.trayinpackage t on t.tray_no = a.tray_no WHERE t.package_no = ?;");
             statement.setInt(1, packageId);
 
             ResultSet res = statement.executeQuery();

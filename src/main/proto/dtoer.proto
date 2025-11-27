@@ -16,6 +16,9 @@ message DTOAnimalPart {
   int32 trayNo = 1;
   DTOAnimal from = 2;
   double weight = 3;
+  string description = 4;
+  int64 cuttingDate = 5;
+  int32 partId = 6;
 }
 
 message DTOTray

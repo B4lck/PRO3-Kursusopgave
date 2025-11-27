@@ -26,8 +26,19 @@ message DeleteAnimalPartRequest {
   int32 id = 1;
 }
 
+message CreateTrayRequest {
+  string type = 1;
+  double maxWeight = 2;
+}
+
+message CreateTrayResponse {
+  DTOTray tray = 1;
+}
+
 service CuttingService {
   rpc GetAnimals (Empty) returns (GetAnimalsResponse);
   rpc AddAnimalPart (AddAnimalPartRequest) returns (AddAnimalPartResponse);
   rpc DeleteAnimalPart (DeleteAnimalPartRequest) returns (Empty);
+
+  rpc CreateTray (CreateTrayRequest) returns (CreateTrayResponse);
 }

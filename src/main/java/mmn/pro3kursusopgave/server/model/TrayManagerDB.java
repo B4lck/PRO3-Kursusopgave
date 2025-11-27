@@ -30,7 +30,7 @@ public class TrayManagerDB implements TrayManager {
                 int packageNumber = res.getInt("package_no");
                 int trayNumber = res.getInt("tray_no");
 
-                Tray tray = new Tray(maxWeight, type, packageNumber, trayNumber);
+                Tray tray = new Tray(maxWeight, type, trayNumber);
                 returnList.add(tray);
                 trays.put(trayNumber, tray);
             }
@@ -58,7 +58,7 @@ public class TrayManagerDB implements TrayManager {
                 int packageNumber = res.getInt("package_no");
                 int trayNumber = res.getInt("tray_no");
 
-                tray = new Tray(maxWeight, type, packageNumber, trayNumber);
+                tray = new Tray(maxWeight, type, trayNumber);
                 trays.put(trayNumber, tray);
 
                 return tray;
@@ -71,17 +71,16 @@ public class TrayManagerDB implements TrayManager {
     }
 
     @Override
-    public int addTray(double max_weight, String animalType, int packageNumber) {
+    public int addTray(double max_weight, String animalType) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO slaughter_house.tray (max_weight, type_of_animal, package_no) VALUES (?, ?, ?) RETURNING slaughter_house.tray.tray_no as id");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO slaughter_house.tray (max_weight, type_of_animal) VALUES (?, ?) RETURNING slaughter_house.tray.tray_no as id");
             statement.setDouble(1, max_weight);
             statement.setString(2, animalType);
-            statement.setInt(3, packageNumber);
 
             ResultSet res = statement.executeQuery();
             if (res.next()) {
                 int id = res.getInt("id");
-                trays.put(id, new Tray(max_weight, animalType, packageNumber, id));
+                trays.put(id, new Tray(max_weight, animalType, id));
                 return id;
             } else {
                 throw new RuntimeException("Kunne ikke indsætte");
@@ -109,5 +108,28 @@ public class TrayManagerDB implements TrayManager {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<Tray> getAllTraysInPackage(int packageNumber) {
+        List<Tray> returnList = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM slaughter_house.trayinpackage WHERE package_no = ?");
+            statement.setInt(1, packageNumber);
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                double maxWeight = res.getDouble("max_weight");
+                String type = res.getString("type_of_animal");
+                int trayNumber = res.getInt("tray_no");
+
+                Tray tray = new Tray(maxWeight, type, trayNumber);
+                returnList.add(tray);
+                trays.put(trayNumber, tray);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return returnList;
     }
 }

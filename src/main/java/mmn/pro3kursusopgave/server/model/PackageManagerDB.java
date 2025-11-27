@@ -2,6 +2,7 @@ package mmn.pro3kursusopgave.server.model;
 
 import mmn.pro3kursusopgave.server.database.Database;
 import mmn.pro3kursusopgave.server.model.entities.Package;
+import mmn.pro3kursusopgave.server.model.entities.Tray;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,12 @@ public class PackageManagerDB implements PackageManager{
 
     private final Map<Integer, Package> packages = new HashMap<>();
 
+    private final TrayManager trayManager;
+
+    public PackageManagerDB(TrayManager trayManager) {
+        this.trayManager = trayManager;
+    }
+
     @Override
     public List<Package> getAllPackages() {
         List<Package> returnList = new ArrayList<>();
@@ -29,7 +36,9 @@ public class PackageManagerDB implements PackageManager{
                 int packageNumber = res.getInt("package_no");
                 LocalDate expireDate = res.getDate("expire_date").toLocalDate();
 
-                Package pack = new Package(packageNumber, expireDate);
+                List<Tray> trays = trayManager.getAllTraysInPackage(packageNumber);
+
+                Package pack = new Package(packageNumber, expireDate, trays);
                 returnList.add(pack);
                 packages.put(pack.getPackageNumber(), pack);
             }
@@ -41,10 +50,6 @@ public class PackageManagerDB implements PackageManager{
 
     @Override
     public Package getPackage(int id) {
-        Package pack = packages.get(id);
-        if (pack != null)
-            return pack;
-
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM package WHERE package_no = ?");
             statement.setInt(1, id);
@@ -55,7 +60,9 @@ public class PackageManagerDB implements PackageManager{
                 int packageNumber = res.getInt("package_no");
                 LocalDate expireDate = res.getDate("expire_date").toLocalDate();
 
-                pack = new Package(packageNumber, expireDate);
+                List<Tray> trays = trayManager.getAllTraysInPackage(packageNumber);
+
+                Package pack = new Package(packageNumber, expireDate, trays);
                 packages.put(id, pack);
                 return pack;
             } else {
@@ -75,7 +82,7 @@ public class PackageManagerDB implements PackageManager{
             ResultSet res = statement.executeQuery();
             if (res.next()) {
                 int id = res.getInt("id");
-                packages.put(id, new Package(id, expireDate));
+                packages.put(id, new Package(id, expireDate, new ArrayList<>()));
                 return id;
             } else {
                 throw new RuntimeException("Kunne ikke indsætte");

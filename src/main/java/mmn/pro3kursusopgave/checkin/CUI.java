@@ -4,10 +4,12 @@ import java.time.Instant;
 import java.util.Scanner;
 
 public class CUI {
-    Scanner input;
+    private Scanner input;
+    private CheckinGrpcClient client;
 
-    public CUI() {
+    public CUI(CheckinGrpcClient client) {
         input = new Scanner(System.in);
+        this.client = client;
     }
 
     public void start() {
@@ -28,12 +30,11 @@ public class CUI {
         String origin = input.nextLine();
         long date = Instant.now().toEpochMilli();
 
-        try {
+        if (client.registerAnimal(weight, type, origin, date)) {
             // Kald server
             System.out.println("Dyret blev registreret");
-        } catch (Exception e) {
+        } else {
             System.out.println("Der skete en fejl");
-            e.printStackTrace();
             System.out.println("Server er muligvis offline, prøver automatisk igen senere...");
             System.out.println("Dyret er blevet registreret lokalt.");
         }
