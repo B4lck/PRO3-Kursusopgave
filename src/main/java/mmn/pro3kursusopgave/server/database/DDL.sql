@@ -21,7 +21,7 @@ CREATE TABLE Package (
 
 CREATE TABLE Tray (
                       max_weight weight_domain NOT NULL,
-                      type_of_animal animal_type NOT NULL,
+                      type_of_part VARCHAR NOT NULL,
                       tray_no SERIAL PRIMARY KEY
 );
 
@@ -39,7 +39,7 @@ CREATE TABLE AnimalPart (
                         tray_no INT REFERENCES Tray (tray_no) NOT NULL,
                         from_animal INT REFERENCES Animal (animal_no) NOT NULL,
                         part_id SERIAL PRIMARY KEY,
-                        description VARCHAR,
+                        type_of_part VARCHAR,
                         cutting_date BIGINT NOT NULL
 );
 
@@ -51,20 +51,15 @@ CREATE TABLE TrayInPackage (
 CREATE OR REPLACE FUNCTION check_animalpart_type_match()
     RETURNS TRIGGER AS $$
 DECLARE
-    animal_type_from_animal animal_type;
-    animal_type_from_tray animal_type;
+    part_type_from_tray VARCHAR;
 BEGIN
-    SELECT type_of_animal INTO animal_type_from_animal
-    FROM Animal
-    WHERE animal_no = NEW.from_animal;
-
-    SELECT type_of_animal INTO animal_type_from_tray
+    SELECT type_of_part INTO part_type_from_tray
     FROM Tray
     WHERE tray_no = NEW.tray_no;
 
-    IF animal_type_from_animal <> animal_type_from_tray THEN
-        RAISE EXCEPTION 'Animal type % does not match tray type % for tray %',
-            animal_type_from_animal, animal_type_from_tray, NEW.tray_no;
+    IF NEW.type_of_part <> part_type_from_tray THEN
+        RAISE EXCEPTION 'Part type % does not match tray type % for tray %',
+            NEW.type_of_part, part_type_from_tray, NEW.tray_no;
     END IF;
 
     RETURN NEW;
@@ -108,12 +103,12 @@ VALUES  ('2025-10-22'),
         ('2025-10-24'),
         ('2025-10-25');
 
-INSERT INTO Tray (max_weight, type_of_animal)      -- Tray ID
-VALUES  (20.00, 'pork'), -- 1
-        (5.00, 'chicken'),  -- 2
-        (12.00, 'lamb'), -- 3
-        (7.50, 'pork'),  -- 4
-        (20.00, 'beef'); -- 5
+INSERT INTO Tray (max_weight, type_of_part)      -- Tray ID
+VALUES  (20.00, 'Flæskesteg'), -- 1
+        (5.00, 'Hel kylling'),  -- 2
+        (12.00, 'Medister'), -- 3
+        (7.50, 'Hakket Oksekød'),  -- 4
+        (20.00, 'Rib eyes'); -- 5
 
 INSERT INTO trayinpackage (tray_no, package_no)
 VALUES (1, 1),
@@ -129,7 +124,7 @@ VALUES  (390.00, 'beef', 'Jens Hansens Bondegård', 1762902000),  -- 1
         (1.7, 'chicken', 'Jens Hansens Bondegård', 1762902000), -- 4
         (25.00, 'lamb', 'Olsens Herregård', 1762902000);  -- 5
 
-INSERT INTO AnimalPart (weight, tray_no, from_animal, description, cutting_date)
+INSERT INTO AnimalPart (weight, tray_no, from_animal, type_of_part, cutting_date)
 VALUES  (20.00, 5, 1, 'Rib eyes', 1762902120),
         (20.00, 1, 2, 'Flæskesteg', 1762902120),
         (1.7, 2, 3, 'Hel kylling', 1762902120),

@@ -2,12 +2,12 @@ package mmn.pro3kursusopgave.server.model.entities;
 
 public class Tray {
     private final double maxWeight;
-    private final String typeOfAnimal;
+    private final String typeOfPart;
     private final int trayNumber;
 
     public Tray(double maxWeight, String typeOfAnimal, int trayNumber) {
         this.maxWeight = maxWeight;
-        this.typeOfAnimal = typeOfAnimal;
+        this.typeOfPart = typeOfAnimal;
         this.trayNumber = trayNumber;
     }
 
@@ -15,8 +15,8 @@ public class Tray {
         return maxWeight;
     }
 
-    public String getTypeOfAnimal() {
-        return typeOfAnimal;
+    public String getTypeOfPart() {
+        return typeOfPart;
     }
 
     public int getTrayNumber() {
@@ -25,6 +25,6 @@ public class Tray {
 
     @Override
     public String toString() {
-        return typeOfAnimal + " - max weight: " + maxWeight + " - ID: " + trayNumber;
+        return typeOfPart + " - max weight: " + maxWeight + " - ID: " + trayNumber;
     }
 }

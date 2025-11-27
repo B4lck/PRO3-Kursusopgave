@@ -31,9 +31,9 @@ public interface AnimalPartManager {
      * @param weight Vægten af delen.
      * @param tray ID'et på det tray delen skal i.
      * @param fromAnimal ID'et på det dyr delen er fra.
-     * @param description Beskrivelse af delen. TODO: Skal nok fjernes, og blive til en part type?
+     * @param typeOfPart Beskrivelse af delen.
      */
-    int addAnimalPart(double weight, int tray, int fromAnimal, String description, long cuttingDate);
+    int addAnimalPart(double weight, int tray, int fromAnimal, String typeOfPart, long cuttingDate);
 
     /**
      * Sletter en animal del.

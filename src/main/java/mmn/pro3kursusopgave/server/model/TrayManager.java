@@ -23,10 +23,10 @@ public interface TrayManager {
     /**
      * Tilføjer et tray.
      * @param max_weight Vægten af tray.
-     * @param animalType Arten af dyret. TODO: Skal være en animal part type
+     * @param animalPartType Arten af dyret.
      * @return ID'et på trayet
      */
-    int addTray(double max_weight, String animalType);
+    int addTray(double max_weight, String animalPartType);
 
     /**
      * Sletter et tray

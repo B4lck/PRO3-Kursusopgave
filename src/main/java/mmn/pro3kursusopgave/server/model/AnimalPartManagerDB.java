@@ -36,10 +36,10 @@ public class AnimalPartManagerDB implements AnimalPartManager{
                 int trayNumber = res.getInt("tray_no");
                 int fromAnimal = res.getInt("from_animal");
                 int id = res.getInt("part_id");
-                String description = res.getString("description");
+                String typeOfPart = res.getString("type_of_part");
                 long cuttingDate = res.getLong("cutting_date");
 
-                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, id, description, cuttingDate);
+                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, id, typeOfPart, cuttingDate);
                 animalParts.put(id, animal);
                 list.add(animal);
             }
@@ -71,15 +71,16 @@ public class AnimalPartManagerDB implements AnimalPartManager{
                 int trayNumber = res.getInt("tray_no");
                 int fromAnimal = res.getInt("from_animal");
                 int partId = res.getInt("part_id");
-                String description = res.getString("description");
+                String typeOfPart = res.getString("type_of_part");
                 long cuttingDate  = res.getLong("cutting_date");
 
-                animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, description, cuttingDate);
+                animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, typeOfPart, cuttingDate);
                 animalParts.put(partId, animal);
                 return animal;
-            } else {
-                throw new RuntimeException("Animal does not exist");
             }
+
+            throw new RuntimeException("AnimalPart with id " + id + " does not exist");
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -99,10 +100,10 @@ public class AnimalPartManagerDB implements AnimalPartManager{
                 int trayNumber = res.getInt("tray_no");
                 int fromAnimal = res.getInt("from_animal");
                 int partId = res.getInt("part_id");
-                String description = res.getString("description");
+                String typeOfPart = res.getString("type_of_part");
                 long cuttingDate = res.getLong("cutting_date");
 
-                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, description, cuttingDate);
+                AnimalPart animal = new AnimalPart(weight, trayNumber, fromAnimal, partId, typeOfPart, cuttingDate);
                 animalParts.put(partId, animal);
                 list.add(animal);
             }
@@ -114,23 +115,24 @@ public class AnimalPartManagerDB implements AnimalPartManager{
     }
 
     @Override
-    public int addAnimalPart(double weight, int tray, int fromAnimal, String description, long cuttingDate) {
+    public int addAnimalPart(double weight, int tray, int fromAnimal, String typeOfPart, long cuttingDate) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO slaughter_house.animalpart (weight, tray_no, from_animal, description, cutting_date) VALUES (?, ?, ?, ?, ?) RETURNING slaughter_house.animalpart.part_id as id");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO slaughter_house.animalpart (weight, tray_no, from_animal, type_of_part, cutting_date) VALUES (?, ?, ?, ?, ?) RETURNING slaughter_house.animalpart.part_id as id");
             statement.setDouble(1, weight);
             statement.setInt(2, tray);
             statement.setInt(3, fromAnimal);
-            statement.setString(4, description);
+            statement.setString(4, typeOfPart);
             statement.setLong(5, cuttingDate);
 
             ResultSet res = statement.executeQuery();
             if (res.next()) {
                 int id = res.getInt("id");
-                animalParts.put(id, new AnimalPart(weight, tray, fromAnimal, id, description, cuttingDate));
+                animalParts.put(id, new AnimalPart(weight, tray, fromAnimal, id, typeOfPart, cuttingDate));
                 return id;
-            } else {
-                throw new RuntimeException("Kunne ikke indsætte");
             }
+
+            throw new RuntimeException("Dyr kunne ikke indsætte");
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -148,9 +150,9 @@ public class AnimalPartManagerDB implements AnimalPartManager{
                 animalParts.remove(id);
                 return id;
             }
-            else {
-                throw new RuntimeException("Findes ikke");
-            }
+
+            throw new RuntimeException("Animal part with id: " + id + " does not exist");
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -5,7 +5,7 @@ public class AnimalPart {
     private final int trayNumber;
     private final int fromAnimalId;
     private final int animalPartId;
-    private final String description;
+    private final String typeOfPart;
     private final long cuttingDate;
 
     public AnimalPart(double weight, int trayNumber, int fromAnimalId, int animalPartId, String description, long cuttingDate) {
@@ -13,7 +13,7 @@ public class AnimalPart {
         this.trayNumber = trayNumber;
         this.fromAnimalId = fromAnimalId;
         this.animalPartId = animalPartId;
-        this.description = description;
+        this.typeOfPart = description;
         this.cuttingDate = cuttingDate;
     }
 
@@ -33,8 +33,8 @@ public class AnimalPart {
         return animalPartId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTypeOfPart() {
+        return typeOfPart;
     }
 
     public long getCuttingDate() {
@@ -43,6 +43,6 @@ public class AnimalPart {
 
     @Override
     public String toString() {
-        return description + " - weight: " + weight + " - tray: " + trayNumber + " - from animal: " + fromAnimalId + " - ID: " + animalPartId;
+        return typeOfPart + " - weight: " + weight + " - tray: " + trayNumber + " - from animal: " + fromAnimalId + " - ID: " + animalPartId;
     }
 }
